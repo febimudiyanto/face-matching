@@ -2,15 +2,14 @@
 #pip install matplotlib
 
 # VGG-Face + Retinaface is a good one.
-
+import time
 import sys, os
-
 from matplotlib import pyplot as plt
 from matplotlib import image as mpimg
 from deepface import DeepFace
 
-fig = plt.figure(figsize=(10,6))
 
+start_time = time.time()
 models = [
   "VGG-Face", 
   "Facenet", 
@@ -58,9 +57,15 @@ similarity_consine = df[header][0]
 similarity_persen = round(1 - similarity_consine, 2)* 100
 #verification = DeepFace.verify(img1_path=candidate, img2_path=img, model_name=models[0], detector_backend="retinaface")
 #print(f"candidate => {candidate}, match = {{verification['verified']}}   distance = {verification['distance']}")
-
-
+print("="*30)
+print("RESULT")
+print("="*30)
+matchName = candidate.split("/")[-1].split(".")[0]
+print(matchName)
+print("="*30)
+print("--- %s seconds ---" % (time.time() - start_time))
 # plot image
+fig = plt.figure(figsize=(10,6))
 Image1 = mpimg.imread(img)
 Image2 = mpimg.imread(candidate)
 fig.add_subplot(1, 2, 1)
@@ -71,7 +76,7 @@ plt.title("Source")
 fig.add_subplot(1, 2, 2)
 plt.imshow(Image2)
 plt.axis("off")
-plt.title(f"file =  {candidate}")
+plt.title(f"{matchName}")
 
 plt.suptitle(f"Match similarity = {similarity_persen} %")
 plt.show()
