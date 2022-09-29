@@ -11,3 +11,10 @@ Install deepface
 ```
 pip install deepface
 ```
+
+Run ```test.py```
+
+
+```
+python test.py <image file>
+```
